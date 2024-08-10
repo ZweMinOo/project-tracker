@@ -33,6 +33,7 @@ class ProjectController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'description' => 'nullable|string',
+            'status' => 'nullable|string:max:50',
             'manager_id' => 'nullable|exists:users,user_id',
         ]);
 
@@ -70,6 +71,7 @@ class ProjectController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'description' => 'nullable|string',
+            'status' => 'nullable|string:max:50',
             'manager_id' => 'nullable|exists:users,user_id',
         ]);
 
