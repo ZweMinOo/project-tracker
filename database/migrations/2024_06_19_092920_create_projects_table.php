@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id('project_id'); // AUTO_INCREMENT and PRIMARY KEY
+            $table->id(); // AUTO_INCREMENT and PRIMARY KEY
             $table->string('project_name', 255);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

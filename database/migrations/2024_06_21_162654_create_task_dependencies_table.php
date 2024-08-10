@@ -17,13 +17,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('task_dependencies', function (Blueprint $table) {
-            $table->id('dependency_id');
+            $table->id('id');
             $table->unsignedBigInteger('dependent_task_id')->nullable();
             $table->unsignedBigInteger('dependency_task_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('dependent_task_id')->references('id')->on('tasks')->onDelete('cascade');
-            $table->foreign('dependency_task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->foreign('dependent_task_id')->references('id')->on('tasks')->onDelete('no action');
+            $table->foreign('dependency_task_id')->references('id')->on('tasks')->onDelete('no action');
         });
     }
 
