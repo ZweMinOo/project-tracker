@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id(); // AUTO_INCREMENT and PRIMARY KEY
             $table->string('project_name', 255);
+            $table->text('description')->nullable();
+            $table->string('status', 50);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->text('description')->nullable();
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->timestamps();
             $table->foreign('manager_id')->references('id')->on('users')->onDelete('cascade');
