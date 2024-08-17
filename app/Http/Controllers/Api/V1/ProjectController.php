@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -26,24 +28,14 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'project_name' => 'required|string|max:255',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'description' => 'nullable|string',
-            'status' => 'nullable|string:max:50',
-            'manager_id' => 'nullable|exists:users,user_id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        try{    
+            $project = Project::create($request->validated());
+            return response()->json(['data' => $project], 201);
+        }catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        $project = Project::create($request->all());
-
-        return response()->json($project, 201);
     }
 
     /**
